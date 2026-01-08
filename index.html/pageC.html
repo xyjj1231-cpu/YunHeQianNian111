@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>大运河文化</title>
+		<meta charset="UTF-8">
+		<style type="text/css">
+        html,body{
+        	    width:100%;
+              	height:100%;
+              	margin:0px;
+              } 
+		body{
+			color: #000000;
+			line-height: 1.6;
+		}
+		ul{
+			    list-style-type:none;
+		      	margin:0px auto;
+		      	padding:0px;
+		      }
+		.menu{
+		      	background-color:#353535;
+		      	color:#ffffff;
+		      	width:100%;
+				font-family: 隶书;
+				font-size: 24px;
+		      }
+		.menu ul{
+			    width:100%;
+		      	display:flex;
+		      	justify-content:center;
+		      }
+		.menu ul li{
+			    width:33%;
+		      	line-height:50px;
+		      	text-align:center;
+		      	position: relative;
+				overflow: hidden;
+				transition: all 0.3s ease;
+			}
+		.menu ul li a {
+			display: block;
+			width: 100%;
+			height: 100%;
+			color: #ffffff;
+			text-decoration: none;
+			transition: all 0.3s ease;
+		}
+		.menu ul li.active {
+			background-color: #753F2D;
+			font-weight: bold;
+		}
+		.menu ul li.active a {
+			color: #ffffff;
+			font-weight: bold;
+		}
+		.menu ul li a:hover {
+			color: #ffffff;
+			text-decoration: underline;
+		}
+        .header-content {
+			font-family: 隶书;
+			width:100%;
+			height:200px;
+			background-color:#000000;
+            margin: 0px auto;
+            padding: 0 auto;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			background-image: url("img/biaotihezi.png");
+			background-size: 100%;
+			background-repeat: no-repeat;
+			background-position-y: 50%;
+			color:#ffffff;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            margin: 5px auto 0; 
+        }
+		h1{
+			font-size: 60px;
+			margin-bottom: 0; 
+		}
+		.wenxue{
+			background-color: antiquewhite;
+		}
+		.minsu{
+			background-color: #EEDCCB;
+		}
+		.jianzhu{
+			background-color: #EED7C9;
+		}
+		.parent{
+			display: flex;
+			justify-content: space-around;
+			margin-top: 20px;
+	
+		}
+		.parent div{
+			width: 32%;
+			height:540px;
+			border-radius: 15px;
+			text-align: center;
+			font-family: 幼圆;
+			border:4px solid #753F2D;
+			transition: all 0.3s ease;
+		}
+		/* 交互效果样式 */
+		.menu ul li:hover {
+			background-color: #555555;
+			cursor: pointer;
+			transform: scale(1.05);
+		}
+		.menu ul li.active:hover {
+			background-color: #753F2D;
+			transform: scale(1.05);
+		}
+		.ripple {
+			position: absolute;
+			border-radius: 50%;
+			background-color: rgba(255, 255, 255, 0.5);
+			transform: scale(0);
+			animation: ripple-animation 0.6s ease-out;
+		}
+		@keyframes ripple-animation {
+			to {
+				transform: scale(4);
+				opacity: 0;
+			}
+		}
+		/* 主题切换样式 */
+		.dark-mode {
+			background-color: #1a1a1a;
+			color: #f0f0f0;
+		}
+		/* 图片悬停效果 */
+		.parent img {
+			transition: transform 0.3s ease;
+		}
+		
+		/* 音乐控制按钮样式 */
+		.music-control {
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			width: 50px;
+			height: 50px;
+			background-color: rgba(117, 63, 45, 0.8);
+			border-radius: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			z-index: 1000;
+			transition: all 0.3s ease;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+		}
+		
+		.music-control:hover {
+			background-color: rgba(117, 63, 45, 1);
+			transform: scale(1.1);
+		}
+		
+		#music-icon {
+			font-size: 24px;
+			color: white;
+			transition: all 0.3s ease;
+		}
+		
+		.music-playing #music-icon {
+			animation: pulse 1.5s infinite;
+		}
+		
+		@keyframes pulse {
+			0% { transform: scale(1); }
+			50% { transform: scale(1.2); }
+			100% { transform: scale(1); }
+		}
+		
+		/* 页面加载动画和元素渐入效果 */
+		.fade-in {
+			opacity: 0;
+			transform: translateY(30px);
+			transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+		}
+		
+		.fade-in.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		
+		/* 标题动画效果 */
+		.header-content h1 {
+			opacity: 0;
+			transform: translateY(-20px);
+			animation: titleFadeIn 1.2s ease-out forwards;
+			animation-delay: 0.3s;
+		}
+		
+		.header-content .subtitle {
+			opacity: 0;
+			transform: translateY(-20px);
+			animation: subtitleFadeIn 1.2s ease-out forwards;
+			animation-delay: 0.6s;
+		}
+		
+		@keyframes titleFadeIn {
+			0% {
+				opacity: 0;
+				transform: translateY(-20px);
+			}
+			100% {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+		
+		@keyframes subtitleFadeIn {
+			0% {
+				opacity: 0;
+				transform: translateY(-20px);
+			}
+			100% {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+		
+		/* 菜单项动画 */
+		.menu ul li {
+			opacity: 0;
+			transform: translateY(-10px);
+			animation: menuFadeIn 0.8s ease-out forwards;
+		}
+		
+		.menu ul li:nth-child(1) { animation-delay: 0.9s; }
+		.menu ul li:nth-child(2) { animation-delay: 1.0s; }
+		.menu ul li:nth-child(3) { animation-delay: 1.1s; }
+		
+		@keyframes menuFadeIn {
+			0% {
+				opacity: 0;
+				transform: translateY(-10px);
+			}
+			100% {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+		
+		/* 卡片动画 */
+		.parent div {
+			opacity: 0;
+			transform: translateY(30px) scale(0.95);
+			transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+		}
+		
+		.parent div.visible {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+		
+		/* 增强的卡片悬停效果 */
+		.parent div {
+			transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			position: relative;
+			overflow: hidden;
+		}
+		
+		.parent div::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: -100%;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+			transition: left 0.5s;
+			z-index: 1;
+		}
+		
+		.parent div:hover::before {
+			left: 100%;
+		}
+		
+		.parent div:hover {
+			transform: translateY(-15px) scale(1.02);
+			box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+			z-index: 10;
+		}
+		
+		/* 卡片内容悬停效果 */
+		.parent div:hover h2 {
+			color: #8B4F3D;
+			transform: translateY(-3px);
+			transition: all 0.3s ease;
+		}
+		
+		.parent div:hover p {
+			color: #555;
+			transition: color 0.3s ease;
+		}
+		
+		/* 卡片图片悬停效果 */
+		.parent div img {
+			transition: all 0.4s ease;
+		}
+		
+		.parent div:hover img {
+			transform: scale(1.05);
+			filter: brightness(1.05) contrast(1.05);
+		}
+		
+		/* 卡片内部元素动画 */
+		.parent div {
+			perspective: 1000px;
+		}
+		
+		.parent div:hover h2 {
+			animation: cardTitlePulse 0.6s ease;
+		}
+		
+		@keyframes cardTitlePulse {
+			0% { transform: translateY(0) scale(1); }
+			50% { transform: translateY(-3px) scale(1.05); }
+			100% { transform: translateY(-3px) scale(1); }
+		}
+		
+		/* 卡片波纹动画 */
+		@keyframes cardRippleEffect {
+			0% {
+				transform: scale(0);
+				opacity: 0.6;
+			}
+			100% {
+				transform: scale(4);
+				opacity: 0;
+			}
+		}
+		
+		/* 卡片阴影动画 */
+		.parent div {
+			box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+		}
+		
+		.parent div:hover {
+			box-shadow: 0 15px 30px rgba(117, 63, 45, 0.2);
+		}
+		
+		/* 标题打字机效果 */
+		.typewriter {
+			overflow: hidden;
+			border-right: 3px solid #753F2D;
+			white-space: nowrap;
+			letter-spacing: 0.1em;
+			animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
+		}
+		
+		.typewriter.typing-complete {
+			border-right: 3px solid transparent;
+			animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end 5;
+		}
+		
+		@keyframes typing {
+			from { width: 0 }
+			to { width: 100% }
+		}
+		
+		@keyframes blink-caret {
+			from, to { border-color: transparent }
+			50% { border-color: #753F2D }
+		}
+		
+		/* 背景粒子效果 */
+		/* 背景粒子容器 */
+		.particle-container {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: -1;
+			overflow: hidden;
+		}
+		
+		/* 粒子基础样式 */
+		.particle {
+			position: absolute;
+			background: radial-gradient(circle, rgba(117, 63, 45, 0.8) 0%, rgba(139, 79, 61, 0.4) 50%, rgba(117, 63, 45, 0) 70%);
+			border-radius: 50%;
+			pointer-events: none;
+		}
+		
+		/* 粒子浮动动画 */
+		@keyframes float-up {
+			0% {
+				transform: translateY(0) translateX(0) scale(0);
+				opacity: 0;
+			}
+			10% {
+				transform: translateY(-20px) translateX(10px) scale(1);
+				opacity: 0.8;
+			}
+			30% {
+				transform: translateY(-80px) translateX(-15px) scale(1.2);
+				opacity: 0.6;
+			}
+			50% {
+				transform: translateY(-150px) translateX(20px) scale(0.9);
+				opacity: 0.4;
+			}
+			70% {
+				transform: translateY(-250px) translateX(-10px) scale(0.7);
+				opacity: 0.2;
+			}
+			100% {
+				transform: translateY(-400px) translateX(5px) scale(0.3);
+				opacity: 0;
+			}
+		}
+		
+		/* 视差效果 */
+		.parallax {
+			position: relative;
+			overflow: hidden;
+		}
+		
+		.parallax-layer {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+		
+		/* 波浪动画 */
+		.wave {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 100px;
+			background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,56 C150,100 350,0 600,56 C850,112 1050,0 1200,56 L1200,120 L0,120 Z" fill="%23753F2D" opacity="0.3"/></svg>');
+			background-size: cover;
+			z-index: -1;
+			animation: wave 10s linear infinite;
+		}
+		
+		@keyframes wave {
+			0% { background-position-x: 0; }
+			100% { background-position-x: 1200px; }
+		}
+		
+		/* 新增：加载提示样式 */
+		.loading {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(238, 215, 201, 0.9);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 24px;
+			color: #753F2D;
+			z-index: 9999;
+			font-family: 隶书;
+			display: none;
+		}
+		
+		.loading::after {
+			content: '';
+			display: inline-block;
+			width: 24px;
+			height: 24px;
+			margin-left: 20px;
+			border: 3px solid #753F2D;
+			border-radius: 50%;
+			border-top-color: transparent;
+			animation: spin 1s linear infinite;
+		}
+		
+		@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+    </style>
+</head>
+<body>
+    <!-- 加载提示 -->
+    <div class="loading" id="loading">正在加载页面...</div>
+
+    <!-- 背景粒子效果容器 -->
+    <div class="particle-container" id="particle-container"></div>
+    
+    <!-- 波浪动画 -->
+    <div class="wave"></div>
+    
+    <header>
+        <div class="header-content">
+            <h1>大运河文化之旅</h1>
+            <p class="subtitle">从古到今，探索世界上最长、最古老的人工水道所承载的丰富文化内涵</p>
+        </div>
+    </header>
+	<div class="menu">
+	      <ul>
+	        <!-- 修改为实际跳转链接 -->
+	        <li id="homeBtn"><a href="javascript:void(0);" title="网站首页">网站首页</a></li>
+	        <!-- 修改为实际跳转链接 -->
+	        <li id="historyBtn"><a href="javascript:void(0);" title="运河历史">运河历史</a></li>
+	        <li class="active" id="cultureBtn">运河文化</li>
+	      </ul>
+	</div>
+	<div class="parent">
+		<div class="wenxue fade-in">
+			<p><h2>文学艺术</h2></p>
+			<img src="img/qingming.jpg" width="350px" height="150px" style="margin-left: 0px;"/>
+			<img src="img/kunqu.png" width="110px" height="150px" style="margin-left: 0px;"/>
+			<p><h3>著名文学作品：</h3></p>
+			<p>"汴水流，泗水流，流到瓜洲古渡头。吴山点点愁。" —— 白居易《长相思》</p>
+			<p>白居易《隋堤柳》、柳永《望海潮》、《红楼梦》、《水浒传》……</p>
+			<p><h3>艺术形式：</h3>《清明上河图》描绘运河繁华、扬剧、淮剧等地方戏曲、运河沿岸的书法碑刻……</p>
+		</div>
+		
+		<div class="minsu fade-in">
+			<p><h2>民俗风情</h2></p>
+			<img src="img/minsu.png" width="330px" height="150px" style="float:left;"/>
+			<img src="img/cai.png" width="150px" height="150px" style="float:left;"/>
+			<p><h3>传统节日与庆典：</h3>开漕节、船工祭祀河神仪式、运河龙舟赛……</p>
+			<p><h3>饮食文化：</h3>淮扬菜系、杭帮菜系、特色船菜、南北风味融合……</p>
+			<p><h3>民间信仰：</h3>河神崇拜、龙王庙祭祀、祈求航行平安</p>
+		</div>
+		
+		<div class="jianzhu fade-in">
+			<p><h2>建筑遗产</h2></p>
+			<img src="img/jianzhu.png" width="200px" height="150px" style="float:left;"/>
+			<img src="img/suzhouqiao.jpg" width="280px" height="150px" style="float:left;"/>
+			<p><h3>水利工程：</h3>淮安清江大闸、杭州拱宸桥、古代船闸系统……</p>
+			<p><h3>古桥建筑：</h3>苏州宝带桥、北京八里桥、扬州五亭桥……</p>
+			<p><h3>历史街区：</h3>扬州东关街、杭州桥西直街、苏州山塘街</p>
+		</div>
+	</div>
+	
+	<!-- 背景音乐 -->
+	<audio id="background-music" loop>
+		<source src="music/音乐.mp3" type="audio/mpeg">
+		您的浏览器不支持音频元素。
+	</audio>
+	
+	<!-- 音乐控制按钮 -->
+	<div id="music-control" class="music-control">
+		<span id="music-icon">🎵</span>
+	</div>
+	
+	<script>
+        // 导航跳转核心逻辑
+        document.addEventListener('DOMContentLoaded', function() {
+            const loading = document.getElementById('loading');
+            const homeBtn = document.getElementById('homeBtn');
+            const historyBtn = document.getElementById('historyBtn');
+            const cultureBtn = document.getElementById('cultureBtn');
+            
+            // 封装跳转函数，增加加载动画和错误处理
+            function navigateTo(pageUrl) {
+                // 显示加载动画
+                loading.style.display = 'flex';
+                
+                // 暂停背景音乐（可选，提升体验）
+                const audio = document.getElementById('background-music');
+                if (audio) audio.pause();
+                
+                // 延迟跳转，展示加载效果
+                setTimeout(() => {
+                    try {
+                        window.location.href = pageUrl;
+                    } catch (error) {
+                        // 跳转失败处理
+                        loading.style.display = 'none';
+                        alert(`跳转失败，请检查${pageUrl}文件是否存在！`);
+                        // 恢复音乐播放
+                        if (audio) audio.play();
+                    }
+                }, 500);
+            }
+            
+            // 首页跳转（A页面）
+            homeBtn.addEventListener('click', function() {
+                navigateTo('pageA.html');
+            });
+            
+            // 历史页面跳转（B页面）
+            historyBtn.addEventListener('click', function() {
+                navigateTo('pageB.html');
+            });
+            
+            // 当前页面点击事件（回到顶部+视觉反馈）
+            cultureBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                // 高亮反馈
+                this.classList.remove('active');
+                setTimeout(() => {
+                    this.classList.add('active');
+                }, 100);
+            });
+
+            // 原有交互逻辑保留（如果external.js有冲突，可合并）
+            // 卡片渐入效果
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(el => {
+                observer.observe(el);
+            });
+            
+            // 音乐控制逻辑
+            const musicControl = document.getElementById('music-control');
+            const musicIcon = document.getElementById('music-icon');
+            const audio = document.getElementById('background-music');
+            let isPlaying = false;
+            
+            musicControl.addEventListener('click', function() {
+                if (isPlaying) {
+                    audio.pause();
+                    musicControl.classList.remove('music-playing');
+                    musicIcon.textContent = '🎵';
+                } else {
+                    audio.play().catch(err => {
+                        console.log('自动播放失败，请手动点击播放:', err);
+                        alert('浏览器限制自动播放，请点击页面任意位置后再次尝试播放音乐');
+                    });
+                    musicControl.classList.add('music-playing');
+                    musicIcon.textContent = '🎶';
+                }
+                isPlaying = !isPlaying;
+            });
+            
+            // 背景粒子效果（简化版，避免和原有逻辑冲突）
+            function createParticles() {
+                const container = document.getElementById('particle-container');
+                if (!container) return;
+                
+                setInterval(() => {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // 随机位置和大小
+                    const size = Math.random() * 10 + 5;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.bottom = '-20px';
+                    
+                    // 动画
+                    particle.style.animation = `float-up ${Math.random() * 8 + 4}s linear forwards`;
+                    
+                    container.appendChild(particle);
+                    
+                    // 移除粒子
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 12000);
+                }, 300);
+            }
+            
+            // 启动粒子效果
+            createParticles();
+            
+            // 页面加载完成隐藏加载提示
+            window.addEventListener('load', function() {
+                loading.style.display = 'none';
+            });
+        });
+	</script>
+</body>
+</html>

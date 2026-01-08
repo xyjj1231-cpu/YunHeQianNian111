@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>运河千年：流淌的文化史诗</title>
+		<meta charset="UTF-8">
+		<style type="text/css">
+        html,body{
+        	    width:100%;
+              	height:100%;
+              	margin:0px;
+              } 
+		body{
+			
+			color: #ffffff;
+			line-height: 1.6;
+			font-family: "隶书", "LiSu", "SimLi", serif; 
+			background-color: #ffffff;
+			background-image: url("img/home3.jpg"); 
+			background-size: cover;
+		    background-position: center;
+		    background-repeat: no-repeat;
+		    background-attachment: fixed; 
+ 
+		}
+		
+		ul{
+			    list-style-type:none;
+		      	margin:0px auto;
+		      	padding:0px;
+		      }
+		.menu{
+	      	background-color:#2c3e50;
+	      	color:#ffffff;
+	      	width:100%;
+	      	box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+	      }
+	.menu ul{
+	    width:100%;
+	      	display:flex;
+	      	justify-content:center;
+	      }
+	.menu ul li{
+	    width:33%;
+	   	line-height:60px;
+	   	text-align:center;
+	   	transition: all 0.3s ease;
+	   	cursor: pointer;
+	   	}
+
+.menu ul li:hover {
+	   	background-color:#34495e;
+	   	transform: translateY(-2px);
+	   	}
+
+.menu ul li.active {
+	   	background-color:#00557f;
+	   	font-weight:bold;
+	   	color:#ffffff;
+	   	box-shadow: 0 4px 12px rgba(0, 85, 127, 0.4);
+	   	}
+
+/* 音乐控制按钮样式 */
+.music-control {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+}
+
+#music-btn {
+    background-color: rgba(44, 62, 80, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+#music-btn:hover {
+    background-color: rgba(52, 73, 94, 0.9);
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+#music-btn.music-off {
+    background-color: rgba(167, 175, 188, 0.8);
+}
+
+#music-btn.music-off:hover {
+    background-color: rgba(187, 195, 208, 0.9);
+}
+        .header-content {
+			width:100%;
+			height:200px;
+			background-image: url("img/home1.jpg");
+			background-size: cover;
+			background-position: 70% 90%;
+            background-repeat: no-repeat;
+            margin: 0 auto;
+            padding: 0 auto;
+			display: flex;
+            flex-direction: column;
+		    justify-content: center; 
+			align-items: center; 
+			text-align: center; 
+			
+        }
+		
+        
+        .subtitle {
+            font-size: 24px;
+            margin: 0 auto;
+        }
+		
+	
+		.slider-container {
+    width: 80%;
+    max-width: 1000px;
+    height: 400px;
+    margin: 30px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* 箭头按钮样式 */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    margin-top: -25px;
+    color: white;
+    font-weight: bold;
+    font-size: 32px;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    user-select: none;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* 左箭头定位 */
+.prev {
+    left: 10px;
+}
+
+/* 右箭头定位 */
+.next {
+    right: 10px;
+}
+
+/* 悬停效果 */
+.prev:hover, .next:hover {
+    background-color: rgba(255,255,255,0.9);
+    color: black;
+    transform: scale(1.1);
+}
+
+/* 点击效果 */
+.prev:active, .next:active {
+    transform: scale(0.95);
+}
+		
+		.slides {
+    width: 400%;
+    height: 100%;
+    display: flex;
+    transition: transform 0.6s ease;
+}
+		
+		.slide {
+		    width: 25%;
+		    height: 100%;
+		    position: relative;
+		}
+		
+		.slide img {
+			    width: 100%;
+			    height: 100%;
+			    object-fit: cover;
+			    cursor: pointer;
+			    transition: transform 0.3s ease;
+			}
+
+			.slide img:hover {
+			    transform: scale(0.98);
+			}
+
+			/* 图片放大模态框样式 */
+			.modal {
+			    display: none;
+			    position: fixed;
+			    z-index: 1000;
+			    left: 0;
+			    top: 0;
+			    width: 100%;
+			    height: 100%;
+			    background-color: rgba(0,0,0,0.9);
+			    overflow: auto;
+			}
+
+			.modal-content {
+			    margin: auto;
+			    display: block;
+			    width: 80vw; /* 使用视口宽度的80% */
+			    height: 80vh; /* 使用视口高度的80% */
+			    object-fit: contain; /* 保持图片原始比例，完整显示 */
+			    background-color: rgba(0,0,0,0.2);
+			    animation-name: zoom;
+			    animation-duration: 0.6s;
+			}
+
+			@keyframes zoom {
+			    from {transform: scale(0)}
+			    to {transform: scale(1)}
+			}
+
+			.close {
+			    position: absolute;
+			    top: 20px;
+			    right: 35px;
+			    color: #f1f1f1;
+			    font-size: 40px;
+			    font-weight: bold;
+			    transition: 0.3s;
+			    cursor: pointer;
+			}
+
+			.close:hover, .close:focus {
+			    color: #bbb;
+			    text-decoration: none;
+			    cursor: pointer;
+			}
+
+			/* 在小屏幕上调整模态框 */
+			@media only screen and (max-width: 700px) {
+			    .modal-content {
+			        width: 100%;
+			    }
+			}
+		
+		.slide-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.content-section {
+		    width: 80%;
+		    max-width: 1000px;
+		    margin: 40px auto;
+		    padding: 20px;
+		    text-align: center;
+		}
+		
+		.content-section h2 {
+		    color: #ffffff;
+		    margin-bottom: 20px;
+		    font-size: 32px;
+		}
+		
+		.content-section p {
+		    color: #ffffff;
+		    font-size: 18px;
+		    line-height: 1.8;
+		    margin-bottom: 20px;
+		}
+		
+		/* 新增：加载提示样式（跳转时用） */
+		.loading {
+		    position: fixed;
+		    top: 0;
+		    left: 0;
+		    width: 100%;
+		    height: 100%;
+		    background-color: rgba(44, 62, 80, 0.9);
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    font-size: 28px;
+		    color: #ffffff;
+		    z-index: 9999;
+		    font-family: 隶书;
+		    display: none;
+		}
+		
+		.loading::after {
+		    content: '';
+		    display: inline-block;
+		    width: 30px;
+		    height: 30px;
+		    margin-left: 20px;
+		    border: 3px solid #ffffff;
+		    border-radius: 50%;
+		    border-top-color: transparent;
+		    animation: spin 1s linear infinite;
+		}
+		
+		@keyframes spin {
+		    0% { transform: rotate(0deg); }
+		    100% { transform: rotate(360deg); }
+		}
+    </style>
+</head>
+<body>
+    <!-- 加载提示（跳转时显示） -->
+    <div class="loading" id="loading">正在加载页面...</div>
+    
+    <header>
+        <div class="header-content">
+            <h1>运河千年：流淌的文化史诗</h1>
+            <p class="subtitle">欢迎来到“运河千年”沉浸式交互平台。
+			这里，我们运用前沿的Web技术，将绵延千里、跨越千年的中国大运河“搬”到您的屏幕前。
+			</p >
+        </div>
+    </header>
+    <!-- 音乐控制按钮 -->
+    <div class="music-control">
+        <button id="music-btn" onclick="toggleMusic()" title="开关背景音乐">
+            <span id="music-icon">♫</span>
+        </button>
+    </div>
+    <!-- 背景音乐 -->
+    <audio id="background-music" loop>
+        <source src="music/backgroundmusic.mp3" type="audio/mpeg">
+        您的浏览器不支持音频元素。
+    </audio>
+	<div class="menu">
+	      <ul>
+	        <li class="active" id="homeBtn">网站首页</li>
+	        <li id="historyBtn">运河历史</li>
+	        <li id="cultureBtn">运河文化</li>
+	      </ul>
+	</div>
+	
+	<div class="slider-container">
+    <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    <div class="slides">
+          <div class="slide">
+            <img src="img/image1.jpg" alt="大运河风景" onclick="openModal('img/image1.jpg')">
+              <div class="slide-caption">千年运河，承载着中华文明的记忆</div>
+          </div>
+          <div class="slide">
+            <img src="img/image2.jpg" alt="运河古桥" onclick="openModal('img/image2.jpg')">
+              <div class="slide-caption">古桥横跨，见证历史的变迁</div>
+          </div>
+          <div class="slide">
+            <img src="img/image3.jpg" alt="运河漕运" onclick="openModal('img/image3.jpg')">
+              <div class="slide-caption">漕运繁忙，连接南北的经济命脉</div>
+          </div>
+          <div class="slide">
+            <img src="img/image4.jpg" alt="运河夜景" onclick="openModal('img/image4.jpg')">
+              <div class="slide-caption">夜色中的运河，静谧而深邃</div>
+          </div>
+      </div>
+</div>
+
+<script>
+// 轮播图控制变量
+let slideIndex = 0;
+
+// 图片放大查看功能
+let modal = null;
+let modalImg = null;
+
+// 页面加载时初始化轮播、模态框和音乐
+window.onload = function() {
+    showSlide(slideIndex);
+    
+    // 创建模态框
+    modal = document.createElement('div');
+    modal.className = 'modal';
+    
+    const closeBtn = document.createElement('span');
+    closeBtn.className = 'close';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.onclick = closeModal;
+    
+    modalImg = document.createElement('img');
+    modalImg.className = 'modal-content';
+    
+    modal.appendChild(closeBtn);
+    modal.appendChild(modalImg);
+    
+    document.body.appendChild(modal);
+    
+    // 点击模态框背景关闭
+    modal.onclick = function(event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+    
+    // 音乐初始化
+    const music = document.getElementById('background-music');
+    const musicBtn = document.getElementById('music-btn');
+    const musicIcon = document.getElementById('music-icon');
+    
+    // 默认暂停，用户点击后开始播放
+    musicBtn.classList.add('music-off');
+    musicIcon.textContent = '♪';
+    
+    // ========== 新增：导航跳转逻辑 ==========
+    initNavigation();
+};
+
+// ========== 新增：导航跳转核心函数 ==========
+function initNavigation() {
+    const loading = document.getElementById('loading');
+    const homeBtn = document.getElementById('homeBtn');
+    const historyBtn = document.getElementById('historyBtn');
+    const cultureBtn = document.getElementById('cultureBtn');
+    
+    // 封装跳转函数（带加载动画+错误处理）
+    function navigateTo(pageUrl) {
+        // 显示加载动画
+        loading.style.display = 'flex';
+        
+        // 暂停背景音乐
+        const audio = document.getElementById('background-music');
+        if (audio) audio.pause();
+        
+        // 延迟跳转，提升体验
+        setTimeout(() => {
+            try {
+                window.location.href = pageUrl;
+            } catch (error) {
+                // 跳转失败处理
+                loading.style.display = 'none';
+                alert(`跳转失败，请检查${pageUrl}文件是否存在！`);
+                // 恢复音乐播放
+                if (audio) audio.play();
+            }
+        }, 500);
+    }
+    
+    // 首页按钮：点击回到顶部+视觉反馈
+    homeBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        // 高亮反馈
+        this.classList.remove('active');
+        setTimeout(() => {
+            this.classList.add('active');
+        }, 100);
+    });
+    
+    // 历史页按钮：跳转到pageB.html
+    historyBtn.addEventListener('click', function() {
+        navigateTo('pageB.html');
+    });
+    
+    // 文化页按钮：跳转到pageC.html
+    cultureBtn.addEventListener('click', function() {
+        navigateTo('pageC.html');
+    });
+}
+
+// 音乐开关功能
+function toggleMusic() {
+    const music = document.getElementById('background-music');
+    const musicBtn = document.getElementById('music-btn');
+    const musicIcon = document.getElementById('music-icon');
+    
+    if (music.paused) {
+        // 开始播放音乐
+        music.play().catch(error => {
+            console.log('自动播放被浏览器阻止，请手动点击播放:', error);
+        });
+        musicBtn.classList.remove('music-off');
+        musicIcon.textContent = '♫';
+    } else {
+        // 暂停音乐
+        music.pause();
+        musicBtn.classList.add('music-off');
+        musicIcon.textContent = '♪';
+    }
+}
+
+// 改变幻灯片
+function changeSlide(n) {
+    slideIndex += n;
+    showSlide(slideIndex);
+}
+
+// 显示特定幻灯片
+function showSlide(n) {
+    const slides = document.querySelector(".slides");
+    const totalSlides = document.querySelectorAll(".slide").length;
+    
+    // 处理边界情况
+    if (n >= totalSlides) {
+        slideIndex = 0;
+    } else if (n < 0) {
+        slideIndex = totalSlides - 1;
+    }
+    
+    // 计算位移
+    const translateX = -slideIndex * 25; // 每个幻灯片占25%宽度
+    slides.style.transform = `translateX(${translateX}%)`;
+}
+
+// 打开模态框
+function openModal(imgSrc) {
+    modal.style.display = 'block';
+    modalImg.src = imgSrc;
+    // 禁止页面滚动
+    document.body.style.overflow = 'hidden';
+}
+
+// 关闭模态框
+function closeModal() {
+    modal.style.display = 'none';
+    // 恢复页面滚动
+    document.body.style.overflow = 'auto';
+}
+</script>
+
+<div class="content-section">
+	    <h2>运河千年：流淌的文化史诗</h2>
+	    <p>中国大运河是世界上里程最长、工程最大的古代运河，也是最古老的运河之一。它始建于春秋时期，贯通于隋朝，繁荣于唐宋，取直于元代，疏通于明清，至今已有2500多年的历史。</p>
+	    <p>大运河贯穿中国南北，连接了海河、黄河、淮河、长江、钱塘江五大水系，全长近3200公里，是中国古代劳动人民创造的一项伟大水利工程。</p>
+	    <p>2014年，中国大运河成功列入《世界遗产名录》，成为我国第46个世界遗产项目，彰显了其在人类文明史上的重要地位。</p>
+	</div>
+	
+</body>
+</html>

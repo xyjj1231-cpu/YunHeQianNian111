@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>大运河历史</title>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        html, body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            color: #333;
+            line-height: 1.8;
+            background-color: #f9f6f0;
+        }
+
+        #header-content {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5em;
+            background-image: url("img/biaotibeijing.png");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: headerFade 1.5s ease-in-out;
+        }
+
+        #header-content h1 {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu {
+            background-color: #a4644a;
+            color: #ffffff;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .menu ul {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu ul li {
+            width: 33%;
+            line-height: 50px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .menu ul li:hover {
+            background-color: #8b5a2b;
+            transform: scale(1.05);
+        }
+
+        .subtitle {
+            font-size: 24px;
+            text-align: center;
+            margin: 30px 0;
+            color: #634130;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .timeline {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+            background-color: #d2bc7f;
+            padding: 40px 0;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #ffffff;
+            animation: lineGrow 1.5s ease-out;
+        }
+
+        .timeline-list {
+            display: flex;
+            justify-content: space-between;
+            list-style: none;
+            padding: 0;
+            margin: 0 5%;
+        }
+
+        .timeline-item {
+            position: relative;
+            text-align: center;
+            width: 120px;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(7) { animation-delay: 0.7s; }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ffffff;
+            margin: 0 auto 10px;
+            transition: all 0.3s;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.5);
+        }
+
+        .timeline-time {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .timeline-content {
+            font-size: 14px;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            background: #2196f3;
+            transform: scale(1.2);
+            box-shadow: 0 0 0 3px rgba(33,150,243,0.3);
+            animation: pulse 1.5s infinite;
+        }
+
+        .timeline-item:hover .timeline-content {
+            color: #e3f2fd;
+        }
+
+        .container {
+            display: flex;
+            width: 90%;
+            margin: 0 auto 40px; 
+            gap: 30px; 
+            padding: 20px;
+            box-sizing: border-box;
+            align-items: flex-start;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .content-image {
+            flex: 1; 
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .carousel-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .carousel-slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            animation: fade 0.5s ease;
+            object-fit: cover;
+        }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, transform 0.2s;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(-50%) scale(0.8);
+        }
+
+        .carousel-container:hover .carousel-btn {
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
+        }
+
+        .carousel-btn:hover {
+            background-color: rgba(0,0,0,0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .indicator-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .indicator-dot.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+
+        .content-intro {
+            flex: 1.5; 
+            padding: 30px; 
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 100%;          
+            height: 730px;        
+            box-sizing: border-box;
+            overflow-y: auto;     
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .content-intro:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .history-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .history-slide {
+            display: none;
+            animation: fade 0.5s ease;
+            height: 100%;
+            box-sizing: border-box;
+            animation: contentFadeIn 0.8s ease-out;
+        }
+
+        .history-slide.active {
+            display: block;
+        }
+
+        .intro-title {
+            font-size: 24px;
+            color: #a4644a;
+            margin-top: 0;
+            border-bottom: 2px solid #d2bc7f;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .intro-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: #a4644a;
+            animation: borderGrow 1s ease-out 0.5s forwards;
+        }
+
+        .intro-section {
+            margin-bottom: 25px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .history-slide.active .intro-section:nth-child(2) { animation-delay: 0.2s; }
+        .history-slide.active .intro-section:nth-child(3) { animation-delay: 0.4s; }
+        .history-slide.active .intro-section:nth-child(4) { animation-delay: 0.6s; }
+
+        .intro-section h4 {
+            margin: 0 0 15px;
+            color: #634130;
+            font-size: 20px;
+            transition: color 0.3s, transform 0.2s;
+        }
+
+        .intro-section h4:hover {
+            color: #a4644a;
+            transform: translateX(5px);
+        }
+
+        .intro-section p {
+            margin: 0 0 12px;
+            font-size: 16px;
+            text-align: justify;
+            line-height: 1.9;
+            transition: color 0.3s;
+        }
+
+        .intro-section p:hover {
+            color: #555;
+        }
+
+        .history-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(164, 100, 74, 0.6);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, transform 0.2s;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(-50%) scale(0.8);
+        }
+
+        .history-carousel:hover .history-btn {
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
+        }
+
+        .history-btn:hover {
+            background-color: rgba(164, 100, 74, 0.9);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .history-prev {
+            left: -20px;
+        }
+
+        .history-next {
+            right: -20px;
+        }
+
+        .history-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .history-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(164, 100, 74, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .history-dot.active {
+            background-color: #a4644a;
+            transform: scale(1.2);
+            animation: breathe 2s ease-in-out infinite;
+        }
+
+        .content-image > img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .content-image > img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        @keyframes fade {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(249, 246, 240, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #a4644a;
+            z-index: 9999;
+            display: none;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-left: 15px;
+            border: 3px solid #a4644a;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes headerFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes lineGrow {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(33,150,243,0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(33,150,243,0); }
+            100% { box-shadow: 0 0 0 0 rgba(33,150,243,0); }
+        }
+
+        @keyframes contentFadeIn {
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes borderGrow {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(1.2); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.8; }
+            100% { transform: scale(1.2); opacity: 1; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 新增：当前页面导航项高亮样式 */
+        .menu ul li.active {
+            background-color: #8b5a2b;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">正在加载页面...</div>
+
+    <header>
+        <div id="header-content">
+            <h1>时空长廊-大运河演变史</h1>
+        </div>
+    </header>
+    <div class="menu">
+        <ul>
+            <li id="homeBtn">网站首页</li>
+            <li id="historyBtn" class="active">运河历史</li> <!-- 新增active类标记当前页 -->
+            <li id="cultureBtn">运河文化</li>
+        </ul>
+    </div>
+
+    <div class="timeline">
+        <ul class="timeline-list">
+            <li class="timeline-item" data-slide="0">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">隋朝</div>
+                <div class="timeline-content">奠定框架，贯通南北</div>
+            </li>
+            <li class="timeline-item" data-slide="1">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">唐朝</div>
+                <div class="timeline-content">持续修缮，走向繁荣</div>
+            </li>
+            <li class="timeline-item" data-slide="1">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">宋朝</div>
+                <div class="timeline-content">漕运鼎盛，经济命脉</div>
+            </li>
+            <li class="timeline-item" data-slide="2">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">元朝</div>
+                <div class="timeline-content">裁弯取直，形成京杭</div>
+            </li>
+            <li class="timeline-item" data-slide="3">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">明朝</div>
+                <div class="timeline-content">大规模整修河道</div>
+            </li>
+            <li class="timeline-item" data-slide="3">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">清朝</div>
+                <div class="timeline-content">维持漕运，渐趋衰落</div>
+            </li>
+            <li class="timeline-item" data-slide="4">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">现代</div>
+                <div class="timeline-content">列入世遗，获得新生</div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="content-image">
+            <div class="carousel-container">
+                <img src="img/dayunhe1.jpg" alt="大运河地图" class="carousel-slide active">
+                <img src="img/dayunhe4.jpg" alt="大运河风光" class="carousel-slide">
+                <img src="img/dayunhe3.jpg" alt="大运河沿岸建筑" class="carousel-slide">
+                <img src="img/dayunhe2.jpg" alt="大运河文化遗产" class="carousel-slide">
+                <img src="img/dayunhe5.jpg" alt="大运河现代风貌" class="carousel-slide">
+                
+                <button class="carousel-btn prev-btn" id="prevBtn">❮</button>
+                <button class="carousel-btn next-btn" id="nextBtn">❯</button>
+                
+                <div class="carousel-indicators" id="imgIndicators"></div>
+            </div>
+            
+            <img src="img/ditu2.jpg" alt="大运河地图">
+        </div>
+        
+        <div class="content-intro">
+            <div class="history-carousel" id="historyCarousel">
+                <div class="history-slide active">
+                    <h3 class="intro-title">隋朝：大运河的开创与奠基</h3>
+                    <div class="intro-section">
+                        <h4>历史背景与开凿动因</h4>
+                        <p>隋朝建立后，结束了南北朝长期分裂的局面，为加强中央集权、沟通南北经济文化交流，隋炀帝杨广于大业元年（605年）开始大规模开凿大运河。当时政治中心在北方长安、洛阳，而经济重心已逐渐南移，开凿运河成为解决漕运、巩固统治的必然选择。</p>
+                        <p>此外，隋炀帝用兵高句丽的军事需求，也成为推动运河开凿的重要因素，运河可快速输送军队和粮草。</p>
+                    </div>
+                    <div class="intro-section">
+                        <h4>运河工程布局</h4>
+                        <p>隋朝大运河以洛阳为中心，分为四段：通济渠（连接黄河与淮河）、邗沟（连接淮河与长江）、永济渠（连接黄河与海河）、江南河（连接长江与钱塘江），全长约2700公里，首次将海河、黄河、淮河、长江、钱塘江五大水系连成一体。</p>
+                        <p>工程动用民夫数百万，历时六年完成，其规模之宏大、技术之先进，在世界水利史上均属罕见。</p>
+                    </div>
+                    <div class="intro-section">
+                        <h4>历史意义</h4>
+                        <p>隋朝大运河的建成，打破了南北地理阻隔，极大促进了南北物资交流和经济发展，为唐朝的繁荣奠定了坚实基础。但同时，过度的徭役也加重了百姓负担，成为隋末农民起义的诱因之一。</p>
+                    </div>
+                </div>
+
+                <div class="history-slide">
+                    <h3 class="intro-title">唐宋：大运河的繁荣与发展</h3>
+                    <div class="intro-section">
+                        <h4>唐朝：运河的修缮与完善</h4>
+                        <p>唐朝继承并完善了隋朝大运河体系，对淤塞河段进行疏浚，增设水闸、堰坝等水利设施，建立了完善的漕运管理制度。贞观、开元年间，运河漕运量大幅提升，仅江淮地区每年运往长安的粮食就达数百万石。</p>
+                        <p>运河沿线的扬州、汴州、苏州等城市迅速崛起，成为当时的经济文化中心，扬州更是被誉为"扬一益二"，成为国际性大都市。</p>
+                    </div>
+                    <div class="intro-section">
+                        <h4>宋朝：漕运的鼎盛时期</h4>
+                        <p>北宋时期，政治中心东移至开封，对运河依赖度更高，对大运河进行了多次整治和扩建，漕运体系达到顶峰。每年通过运河运往开封的漕粮最高达800万石，远超唐代水平。</p>
+                        <p>南宋时期，政治中心南迁至临安（杭州），对江南段运河进行重点维护，运河成为支撑南宋政权的经济命脉，带动了江南地区手工业、商业的空前繁荣，出现了"苏湖熟，天下足"的局面。</p>
+                    </div>
+                    <div class="intro-section">
+                        <h4>技术创新与文化融合</h4>
+                        <p>唐宋时期，运河航运技术不断进步，出现了复式船闸、运河水位调节系统等创新技术。同时，运河成为南北文化交流的纽带，北方的戏曲、书画与南方的诗词、工艺相互融合，形成了独具特色的运河文化。</p>
+                    </div>
+                </div>
+
+                <div class="history-slide">
+                    <h3 class="intro-title">元朝：京杭大运河的形成</h3>
+                    <div class="intro-section">
+                        <h4>运河改道的历史背景</h4>
+                        <p>元朝定都大都（今北京），政治中心北移，原有的以洛阳为中心的运河线路过于曲折，运输效率低下。为缩短运输距离，元世祖忽必烈决定对大运河进行大规模改造，裁弯取直，直接连接北京与杭州。</p>
+                    </div>
+                    <div class="intro-section">
+                        <h4>关键工程建设</h4>
+                        <p>元朝先后开凿了济州河（连接汶水与泗水）、会通河（连接东平路与临清）、通惠河（连接大都与通州），彻底废弃了洛阳至开封段运河，使大运河由"之"字形变为南北直线型，全程缩短至约1800公里。</p>
+                        <p>其中，郭守敬主持修建的通惠河，解决了大都地区的水源问题，实现了漕船从杭州直抵大都城内的积水潭。</p>
+                    </div>
+                    <div class="intro-section">
+                        <h4>历史影响</h4>
+                        <p>京杭大运河的形成，极大提升了漕运效率，加强了中央政府对江南地区的控制，促进了南北经济文化交流。同时，也推动了天津、德州、临清等北方运河城市的兴起。</p>
+                    </div>
+                </div>
+
+                <div class="history-slide">
+                    <h3 class="intro-title">明清：大运河的维护与衰落</h3>
+                    <div class="intro-section">
+                        <h4>明朝：运河的全面整修</h4>
+                        <p>明朝初期，对元朝的京杭大运河进行了全面修复和改造，重点治理了会通河河段的淤塞问题，解决了运河水源不足、水位落差过大等技术难题。永乐年间，为迁都北京，进一步完善了漕运体系，设立漕运总督专门管理运河漕运。</p>
+                        <p>明中期，运河年漕运量稳定在400万石左右，成为都城北京的生命线，运河沿线的淮安、徐州、聊城等城市发展至鼎盛。</p>
+                    </div>
+                    <div class="intro-section">
+                        <h4>清朝：漕运的延续与危机</h4>
+                        <p>清朝基本继承了明朝的运河体系，前期对运河进行了多次维护，漕运制度更加完善。康乾盛世时期，运河漕运依然保持繁荣，乾隆皇帝多次沿运河南下江南，促进了运河文化的发展。</p>
+                        <p>19世纪后，黄河多次决口改道，导致运河多处淤塞，加之铁路、海运的兴起，运河漕运逐渐衰落。咸丰五年（1855年），黄河改道后，大运河山东段基本断航，漕运功能大幅下降。</p>
+                    </div>
+                    <div class="intro-section">
+                        <h4>衰落的深层原因</h4>
+                        <p>除了自然因素外，封建漕运制度的腐败、运输成本的上升、近代交通方式的冲击，都是导致大运河衰落的重要原因。光绪二十七年（1901年），清政府正式停止漕运，大运河完成了其作为国家经济命脉的历史使命。</p>
+                    </div>
+                </div>
+
+                <div class="history-slide">
+                    <h3 class="intro-title">现代：大运河的保护与新生</h3>
+                    <div class="intro-section">
+                        <h4>运河的保护与修复</h4>
+                        <p>新中国成立后，对大运河进行了系统性的修复和利用，重点整治了江南段运河，使其成为重要的内河航运通道。改革开放后，大运河的文化价值和历史价值受到高度重视，各地开始对运河沿岸的历史遗迹进行保护和修缮。</p>
+                    </div>
+                    <div class="intro-section">
+                        <h4>列入世界文化遗产</h4>
+                        <p>2014年6月22日，中国大运河在第38届世界遗产大会上被列入《世界文化遗产名录》，成为中国第46项世界遗产。大运河遗产区涵盖北京、天津、河北、山东、河南、安徽、江苏、浙江8个省市，包括河道遗产27段，总长度1011公里，以及相关遗产点58处。</p>
+                    </div>
+                    <div class="intro-section">
+                        <h4>当代价值与发展</h4>
+                        <p>如今的大运河，兼具航运、防洪、灌溉、生态保护和文化旅游等多重功能。南水北调东线工程更是利用了大运河的河道，实现了水资源的跨区域调配。</p>
+                        <p>运河沿线城市依托运河文化，打造了众多文旅项目，如杭州运河文化广场、扬州瘦西湖、苏州古运河等，使大运河在新时代焕发出新的生机与活力。</p>
+                        <p>2019年，国家出台《大运河文化保护传承利用规划纲要》，为大运河的保护和发展提供了顶层设计，大运河文化带建设成为国家文化发展战略的重要组成部分。</p>
+                    </div>
+                </div>
+
+                <button class="history-btn history-prev" id="historyPrev">❮</button>
+                <button class="history-btn history-next" id="historyNext">❯</button>
+            </div>
+            
+            <div class="history-indicators" id="historyIndicators"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loading = document.getElementById('loading');
+            
+            // 1. 导航跳转功能（完善跳转逻辑，增加错误处理）
+            const homeBtn = document.getElementById('homeBtn');
+            const cultureBtn = document.getElementById('cultureBtn');
+            const historyBtn = document.getElementById('historyBtn');
+            
+            // 封装跳转函数，增加错误处理
+            function navigateTo(pageUrl) {
+                loading.style.display = 'flex';
+                // 跳转前验证页面地址
+                setTimeout(() => {
+                    try {
+                        window.location.href = pageUrl;
+                    } catch (error) {
+                        loading.style.display = 'none';
+                        alert(`跳转失败，请检查${pageUrl}文件是否存在！`);
+                    }
+                }, 500);
+            }
+            
+            homeBtn.addEventListener('click', function() {
+                navigateTo('pageA.html'); // 跳转到首页（A页面）
+            });
+            
+            cultureBtn.addEventListener('click', function() {
+                navigateTo('pageC.html'); // 跳转到文化页面（C页面）
+            });
+            
+            historyBtn.addEventListener('click', function() {
+                // 当前页面点击后回到顶部，增加视觉反馈
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                this.classList.add('active');
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 300);
+            });
+
+            // 2. 图片轮播功能
+            const imgSlides = document.querySelectorAll('.carousel-slide');
+            const imgPrevBtn = document.getElementById('prevBtn');
+            const imgNextBtn = document.getElementById('nextBtn');
+            const imgIndicatorsContainer = document.getElementById('imgIndicators');
+            let currentImgSlide = 0;
+
+            imgSlides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = `indicator-dot ${index === 0 ? 'active' : ''}`;
+                dot.setAttribute('data-index', index);
+                imgIndicatorsContainer.appendChild(dot);
+                
+                dot.addEventListener('click', function() {
+                    currentImgSlide = parseInt(this.getAttribute('data-index'));
+                    showImgSlide(currentImgSlide);
+                });
+            });
+
+            const imgIndicators = document.querySelectorAll('.indicator-dot');
+
+            function showImgSlide(index) {
+                imgSlides.forEach(slide => slide.classList.remove('active'));
+                imgIndicators.forEach(dot => dot.classList.remove('active'));
+                
+                if (index >= imgSlides.length) currentImgSlide = 0;
+                if (index < 0) currentImgSlide = imgSlides.length - 1;
+                
+                imgSlides[currentImgSlide].classList.add('active');
+                imgIndicators[currentImgSlide].classList.add('active');
+            }
+
+            imgPrevBtn.addEventListener('click', function() {
+                currentImgSlide--;
+                showImgSlide(currentImgSlide);
+            });
+
+            imgNextBtn.addEventListener('click', function() {
+                currentImgSlide++;
+                showImgSlide(currentImgSlide);
+            });
+
+            let imgAutoplay = setInterval(function() {
+                currentImgSlide++;
+                showImgSlide(currentImgSlide);
+            }, 6000);
+
+            const carouselContainer = document.querySelector('.carousel-container');
+            carouselContainer.addEventListener('mouseenter', function() {
+                clearInterval(imgAutoplay);
+            });
+
+            carouselContainer.addEventListener('mouseleave', function() {
+                imgAutoplay = setInterval(function() {
+                    currentImgSlide++;
+                    showImgSlide(currentImgSlide);
+                }, 6000);
+            });
+
+            // 3. 历史内容轮播功能
+            const historySlides = document.querySelectorAll('.history-slide');
+            const historyPrevBtn = document.getElementById('historyPrev');
+            const historyNextBtn = document.getElementById('historyNext');
+            const historyIndicatorsContainer = document.getElementById('historyIndicators');
+            let currentHistorySlide = 0;
+
+            historySlides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = `history-dot ${index === 0 ? 'active' : ''}`;
+                dot.setAttribute('data-index', index);
+                historyIndicatorsContainer.appendChild(dot);
+                
+                dot.addEventListener('click', function() {
+                    currentHistorySlide = parseInt(this.getAttribute('data-index'));
+                    showHistorySlide(currentHistorySlide);
+                });
+            });
+
+            const historyIndicators = document.querySelectorAll('.history-dot');
+
+            function showHistorySlide(index) {
+                historySlides.forEach(slide => slide.classList.remove('active'));
+                historyIndicators.forEach(dot => dot.classList.remove('active'));
+                
+                if (index >= historySlides.length) currentHistorySlide = 0;
+                if (index < 0) currentHistorySlide = historySlides.length - 1;
+                
+                historySlides[currentHistorySlide].classList.add('active');
+                historyIndicators[currentHistorySlide].classList.add('active');
+            }
+
+            historyPrevBtn.addEventListener('click', function() {
+                currentHistorySlide--;
+                showHistorySlide(currentHistorySlide);
+            });
+
+            historyNextBtn.addEventListener('click', function() {
+                currentHistorySlide++;
+                showHistorySlide(currentHistorySlide);
+            });
+
+            let historyAutoplay = setInterval(function() {
+                currentHistorySlide++;
+                showHistorySlide(currentHistorySlide);
+            }, 10000);
+
+            const historyCarousel = document.getElementById('historyCarousel');
+            historyCarousel.addEventListener('mouseenter', function() {
+                clearInterval(historyAutoplay);
+            });
+
+            historyCarousel.addEventListener('mouseleave', function() {
+                historyAutoplay = setInterval(function() {
+                    currentHistorySlide++;
+                    showHistorySlide(currentHistorySlide);
+                }, 10000);
+            });
+
+            // 4. 时间轴点击跳转对应历史轮播
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-slide'));
+                    currentHistorySlide = slideIndex;
+                    showHistorySlide(currentHistorySlide);
+                    
+                    timelineItems.forEach(ti => ti.querySelector('.timeline-dot').style.background = '#fff');
+                    this.querySelector('.timeline-dot').style.background = '#2196f3';
+                    setTimeout(() => {
+                        this.querySelector('.timeline-dot').style.background = '#fff';
+                    }, 2000);
+                });
+            });
+
+            // 页面加载完成隐藏加载提示
+            window.addEventListener('load', function() {
+                loading.style.display = 'none';
+            });
+            
+            // 新增：页面加载失败处理
+            window.addEventListener('error', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    // 图片加载失败时显示占位图
+                    e.target.src = 'img/placeholder.jpg'; // 可自行准备占位图
+                    e.target.alt = '图片加载失败';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
